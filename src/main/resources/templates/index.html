@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          rel="stylesheet">
+
+    <title>Список студентов</title>
+</head>
+<body class="bg-light">
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2>Управление студентами</h2>
+        <p class="lead">На данной странице вы можете добавить, отредактировать поля или удалить студентов</p>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h2>Группа</h2>
+        </div>
+        <div class="col col-lg-3 text-end">
+            <a aria-disabled="true" class="btn btn-lg btn-block btn-outline-primary" role="button"
+               th:href="@{~/add}">Добавить студента</a>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th class="text-justify">#</th>
+                <th class="text-justify">Фамилия</th>
+                <th class="text-justify">Имя</th>
+                <th class="text-justify">Отчество</th>
+                <th class="text-justify">Почта</th>
+                <th class="text-justify">Телефон</th>
+                <th class="text-justify"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student : ${students}">
+                <td class="align-middle"><span th:text="${student.id}"/></td>
+                <td class="align-middle"><span th:text="${student.lastName}"/></td>
+                <td class="align-middle"><span th:text="${student.firstName}"/></td>
+                <td class="align-middle"><span th:text="${student.patronymic}"/></td>
+                <td class="align-middle"><span th:text="${student.email}"/></td>
+                <td class="align-middle"><span th:text="${student.phone}"/></td>
+                <td class="align-middle">
+                    <a class="btn btn-outline-info" th:href="@{'~/'+${student.id}+'/edit'}">Править</a>
+                </td>
+                <td class="align-middle">
+                    <a class="btn btn-outline-danger"
+                       th:href="@{'~/'+${student.id}+'/remove'}"
+                       th:onclick="return confirm('Вы уверены, что хотите удалить студента [[${student.getLastName()}]] (id [[${student.getId()}]])?')">
+                        Удалить
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script crossorigin="anonymous"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
